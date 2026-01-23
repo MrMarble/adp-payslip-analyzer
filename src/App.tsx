@@ -3,38 +3,50 @@ import type { Payslip } from './types'
 import { parsePayslip } from './payslip-parser'
 import HeroUpload from './components/HeroUpload'
 import PayslipSummary from './components/PayslipSummary'
+import MultiPayslipView from './components/MultiPayslipView'
 
 function App() {
-  const [payslip, setPayslip] = useState<Payslip | null>(null)
+  const [payslips, setPayslips] = useState<Payslip[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const handleFileUpload = async (file: File) => {
+  const handleFilesUpload = async (files: File[]) => {
     setLoading(true)
     setError(null)
 
     try {
-      const buffer = await file.arrayBuffer()
-      const parsed = await parsePayslip(buffer)
-      setPayslip(parsed)
+      const parsed: Payslip[] = []
+      for (const file of files) {
+        const buffer = await file.arrayBuffer()
+        const payslip = await parsePayslip(buffer)
+        parsed.push(payslip)
+      }
+      setPayslips(parsed)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to parse PDF')
-      setPayslip(null)
+      setError(err instanceof Error ? err.message : 'Failed to parse PDFs')
+      setPayslips([])
     } finally {
       setLoading(false)
     }
   }
 
   const handleReset = () => {
-    setPayslip(null)
+    setPayslips([])
     setError(null)
   }
 
-  if (payslip) {
-    return <PayslipSummary payslip={payslip} onReset={handleReset} />
+  // No payslips: show upload screen
+  if (payslips.length === 0) {
+    return <HeroUpload onFilesUpload={handleFilesUpload} loading={loading} error={error} />
   }
 
-  return <HeroUpload onFileUpload={handleFileUpload} loading={loading} error={error} />
+  // Single payslip: show detailed view
+  if (payslips.length === 1) {
+    return <PayslipSummary payslip={payslips[0]} onReset={handleReset} />
+  }
+
+  // Multiple payslips: show overview with time series
+  return <MultiPayslipView payslips={payslips} onReset={handleReset} />
 }
 
 export default App

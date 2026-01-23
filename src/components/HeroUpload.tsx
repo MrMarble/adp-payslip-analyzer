@@ -1,21 +1,21 @@
 import { useCallback } from 'react'
 
 interface HeroUploadProps {
-  onFileUpload: (file: File) => void
+  onFilesUpload: (files: File[]) => void
   loading: boolean
   error: string | null
 }
 
-export default function HeroUpload({ onFileUpload, loading, error }: HeroUploadProps) {
+export default function HeroUpload({ onFilesUpload, loading, error }: HeroUploadProps) {
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault()
-      const file = e.dataTransfer.files[0]
-      if (file?.type === 'application/pdf') {
-        onFileUpload(file)
+      const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf')
+      if (files.length > 0) {
+        onFilesUpload(files)
       }
     },
-    [onFileUpload]
+    [onFilesUpload]
   )
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -24,12 +24,12 @@ export default function HeroUpload({ onFileUpload, loading, error }: HeroUploadP
 
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0]
-      if (file) {
-        onFileUpload(file)
+      const files = Array.from(e.target.files ?? [])
+      if (files.length > 0) {
+        onFilesUpload(files)
       }
     },
-    [onFileUpload]
+    [onFilesUpload]
   )
 
   return (
@@ -38,8 +38,8 @@ export default function HeroUpload({ onFileUpload, loading, error }: HeroUploadP
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">Payslip Analyzer</h1>
           <p className="py-6">
-            Upload your ADP payslip PDF to get a clear breakdown of your earnings, deductions, and
-            where your money goes.
+            Upload your ADP payslip PDFs to get a clear breakdown of your earnings, deductions, and
+            where your money goes. Upload multiple payslips to see trends over time.
           </p>
 
           <div
@@ -50,7 +50,7 @@ export default function HeroUpload({ onFileUpload, loading, error }: HeroUploadP
             {loading ? (
               <div className="flex flex-col items-center gap-4">
                 <span className="loading loading-spinner loading-lg text-primary"></span>
-                <p>Analyzing payslip...</p>
+                <p>Analyzing payslips...</p>
               </div>
             ) : (
               <>
@@ -69,11 +69,12 @@ export default function HeroUpload({ onFileUpload, loading, error }: HeroUploadP
                   />
                 </svg>
                 <p className="mt-4 text-base-content/70">
-                  Drag and drop your PDF here, or click to browse
+                  Drag and drop your PDFs here, or click to browse
                 </p>
                 <input
                   type="file"
                   accept=".pdf,application/pdf"
+                  multiple
                   onChange={handleFileChange}
                   className="file-input file-input-bordered file-input-primary w-full max-w-xs mt-4"
                 />

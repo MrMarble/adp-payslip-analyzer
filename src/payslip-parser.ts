@@ -13,19 +13,49 @@ function parseSpanishNumber(str: string): number | null {
   return isNaN(num) ? null : num
 }
 
+const SPANISH_MONTHS: Record<string, string> = {
+  ENERO: '01',
+  FEBRERO: '02',
+  MARZO: '03',
+  ABRIL: '04',
+  MAYO: '05',
+  JUNIO: '06',
+  JULIO: '07',
+  AGOSTO: '08',
+  SEPTIEMBRE: '09',
+  OCTUBRE: '10',
+  NOVIEMBRE: '11',
+  DICIEMBRE: '12',
+}
+
+/**
+ * Parse Spanish date to ISO format (YYYY-MM-DD)
+ */
+function parseSpanishDate(dateStr: string): string {
+  const match = dateStr.match(/(\d{1,2})\s+DE\s+(\w+)\s+DE\s+(\d{4})/i)
+  if (!match) return ''
+  const [, day, month, year] = match
+  const monthNum = SPANISH_MONTHS[month.toUpperCase()]
+  if (!monthNum) return ''
+  return `${year}-${monthNum}-${day.padStart(2, '0')}`
+}
+
 /**
  * Extract payment date from payslip text
  */
-function extractPaymentDate(lines: TextPosition[][]): string {
+function extractPaymentDate(lines: TextPosition[][]): { display: string; sortable: string } {
   for (const line of lines) {
     const text = line.map(item => item.text).join(' ')
     // Look for "FECHA DE ABONO" pattern
     const match = text.match(/FECHA DE ABONO\s+(\d{1,2}\s+DE\s+\w+\s+DE\s+\d{4})/i)
     if (match) {
-      return match[1]
+      return {
+        display: match[1],
+        sortable: parseSpanishDate(match[1]),
+      }
     }
   }
-  return ''
+  return { display: '', sortable: '' }
 }
 
 /**
@@ -189,7 +219,7 @@ export async function parsePayslip(data: ArrayBuffer): Promise<Payslip> {
 
   const lines = groupByLines(page1.items)
 
-  const paymentDate = extractPaymentDate(lines)
+  const { display: paymentDate, sortable: sortableDate } = extractPaymentDate(lines)
   const netPay = extractNetPay(lines)
   const { totalEarnings, totalDeductions } = extractTotals(lines)
 
@@ -214,6 +244,7 @@ export async function parsePayslip(data: ArrayBuffer): Promise<Payslip> {
 
   return {
     paymentDate,
+    sortableDate,
     earnings,
     deductions,
     totalEarnings,

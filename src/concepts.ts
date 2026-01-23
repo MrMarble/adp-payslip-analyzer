@@ -16,6 +16,12 @@ export const KNOWN_CONCEPTS: Record<string, ConceptDefinition> = {
     description: 'Base monthly salary before any additions or deductions',
     type: 'earning',
   },
+  '413': {
+    code: '413',
+    name: 'Q BONUS',
+    description: 'Quarterly bonus payment',
+    type: 'earning',
+  },
   '438': {
     code: '438',
     name: 'BONUS',
@@ -146,4 +152,16 @@ export function getConcept(code: string): ConceptDefinition | undefined {
  */
 export function isKnownConcept(code: string): boolean {
   return code in KNOWN_CONCEPTS
+}
+
+/**
+ * Bonus concept codes (for special highlighting)
+ */
+export const BONUS_CODES = ['413', '438']
+
+/**
+ * Check if a concept code is a bonus
+ */
+export function isBonusConcept(code: string): boolean {
+  return BONUS_CODES.includes(code)
 }
