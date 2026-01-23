@@ -2,3 +2,6 @@ node_modules/
 dist/
 *.log
 .DS_Store
+
+# Test fixtures contain private payslip data
+tests/fixtures/
