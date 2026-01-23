@@ -1,0 +1,33 @@
+{
+  "name": "adp-payslip-analyzer",
+  "version": "1.0.0",
+  "description": "Client-side ADP payslip analyzer",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "daisyui": "^5.5.14",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "@nivo/sankey": "^0.99.0",
+    "pdfjs-dist": "^5.4.530",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}
