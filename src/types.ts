@@ -16,6 +16,8 @@ export interface PayslipLineItem {
  */
 export interface Payslip {
   paymentDate: string
+  /** ISO date string for sorting (YYYY-MM-DD) */
+  sortableDate: string
   earnings: PayslipLineItem[]
   deductions: PayslipLineItem[]
   totalEarnings: number

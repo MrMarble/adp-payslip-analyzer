@@ -1,4 +1,5 @@
 import type { Payslip, PayslipLineItem } from '../types'
+import { isBonusConcept } from '../concepts'
 
 interface PayslipTableProps {
   payslip: Payslip
@@ -20,7 +21,7 @@ function formatNumber(value: number | null): string {
 }
 
 function EarningRow({ item }: { item: PayslipLineItem }) {
-  const isBonus = item.code === '438'
+  const isBonus = isBonusConcept(item.code)
 
   return (
     <tr className={isBonus ? 'rainbow-text' : ''}>
