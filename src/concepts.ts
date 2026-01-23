@@ -52,6 +52,12 @@ export const KNOWN_CONCEPTS: Record<string, ConceptDefinition> = {
     description: 'Dental insurance benefit paid by employer',
     type: 'earning',
   },
+  '712': {
+    code: '712',
+    name: 'AWARD',
+    description: 'Award or recognition payment',
+    type: 'earning',
+  },
   '715': {
     code: '715',
     name: 'T.RESTAU',
@@ -96,6 +102,30 @@ export const KNOWN_CONCEPTS: Record<string, ConceptDefinition> = {
     description: 'Solidarity contribution on earnings above Social Security ceiling',
     type: 'deduction',
   },
+  '1115': {
+    code: '1115',
+    name: 'SEGUR.SOCIAL SS',
+    description: 'Employee Social Security contribution (contingencias comunes) - alternate code',
+    type: 'deduction',
+  },
+  '1118': {
+    code: '1118',
+    name: 'DESEMPLEO SS',
+    description: 'Unemployment insurance contribution - alternate code',
+    type: 'deduction',
+  },
+  '1119': {
+    code: '1119',
+    name: 'FORM. PROFES. SS',
+    description: 'Professional training contribution - alternate code',
+    type: 'deduction',
+  },
+  '1120': {
+    code: '1120',
+    name: 'SEG.SOCIAL SS MEI',
+    description: 'Intergenerational Equity Mechanism (MEI) - alternate code',
+    type: 'deduction',
+  },
   '1051': {
     code: '1051',
     name: 'IMP A CUENTA RENTA',
@@ -112,6 +142,12 @@ export const KNOWN_CONCEPTS: Record<string, ConceptDefinition> = {
     code: '1075',
     name: 'IMP A CTA SEG.DENTAL',
     description: 'IRPF withholding on dental insurance benefit (in-kind taxation)',
+    type: 'deduction',
+  },
+  '1077': {
+    code: '1077',
+    name: 'IMP A CTA AWARD',
+    description: 'IRPF withholding on award payment',
     type: 'deduction',
   },
   '1085': {
@@ -136,6 +172,12 @@ export const KNOWN_CONCEPTS: Record<string, ConceptDefinition> = {
     code: '1550',
     name: 'DEDUC.PLAN PENSIONES',
     description: 'Pension plan deduction (employee contribution to company pension)',
+    type: 'deduction',
+  },
+  '1592': {
+    code: '1592',
+    name: 'LIQUI.NEG.EXP ANTER',
+    description: 'Negative liquidation adjustment from previous period',
     type: 'deduction',
   },
 }
