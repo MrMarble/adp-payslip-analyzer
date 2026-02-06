@@ -3,6 +3,7 @@ import type { Payslip } from '../types'
 import { isBonusConcept } from '../concepts'
 import TimeSeriesChart from './TimeSeriesChart'
 import PayslipSummary from './PayslipSummary'
+import Layout from './Layout'
 
 interface MultiPayslipViewProps {
   payslips: Payslip[]
@@ -61,20 +62,10 @@ export default function MultiPayslipView({ payslips, onReset }: MultiPayslipView
   // Check if any payslip has a bonus
   const hasBonus = sortedPayslips.some(p => p.earnings.some(e => isBonusConcept(e.code)))
 
-  return (
-    <div className="min-h-screen bg-base-200 p-4">
-      <div className="navbar bg-base-100 rounded-box mb-4">
-        <div className="flex-1">
-          <span className="text-xl font-bold px-4">Payslip Analyzer</span>
-          <span className="badge badge-primary">{sortedPayslips.length} payslips</span>
-        </div>
-        <div className="flex-none">
-          <button className="btn btn-ghost" onClick={onReset}>
-            Upload New
-          </button>
-        </div>
-      </div>
+  const badge = <span className="badge badge-primary">{sortedPayslips.length} payslips</span>
 
+  return (
+    <Layout title="Payslip Analyzer" badge={badge} onReset={onReset}>
       {/* Time Series Chart */}
       <div className="card bg-base-100 shadow mb-4">
         <div className="card-body">
@@ -170,6 +161,6 @@ export default function MultiPayslipView({ payslips, onReset }: MultiPayslipView
       {selectedPayslip && (
         <PayslipSummary payslip={selectedPayslip} onReset={onReset} embedded />
       )}
-    </div>
+    </Layout>
   )
 }
