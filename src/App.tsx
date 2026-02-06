@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Payslip } from './types'
-import { parsePayslip } from './payslip-parser'
+import { parsePayslip, detectUnknownConcepts } from './payslip-parser'
 import HeroUpload from './components/HeroUpload'
 import PayslipSummary from './components/PayslipSummary'
 import MultiPayslipView from './components/MultiPayslipView'
@@ -31,6 +31,20 @@ function App() {
         const buffer = await file.arrayBuffer()
         const payslip = await parsePayslip(buffer)
         parsed.push(payslip)
+
+        // Detect unknown concepts and warn user
+        const detectBuffer = await file.arrayBuffer()
+        const unknown = await detectUnknownConcepts(detectBuffer)
+        if (unknown.length > 0) {
+          console.warn(
+            '%cUnknown concepts found!%c\n\n' +
+              'The following payslip concepts are not yet supported:\n\n' +
+              unknown.map(c => `  ${c.code}: ${c.name}`).join('\n') +
+              '\n\nPlease open an issue:\nhttps://github.com/mrmarble/adp-payslip-analyzer/issues/new',
+            'background: #f59e0b; color: black; padding: 2px 6px; border-radius: 3px; font-weight: bold;',
+            ''
+          )
+        }
       }
       setPayslips(parsed)
     } catch (err) {
