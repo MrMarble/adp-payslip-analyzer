@@ -32,6 +32,10 @@ npm run build      # Production build
 npm run test       # Run tests
 ```
 
+## Found an unknown concept?
+
+If you see a warning in the browser console about unknown concepts, it means your payslip contains codes not yet supported. Please [open an issue](https://github.com/mrmarble/adp-payslip-analyzer/issues/new) with the concept codes and we'll add them.
+
 ## License
 
 Licensed under **The "Better Ask The LLM" License (BATL)** - Software offered "as is, maybe" with no warranties or guarantees. Use at your own risk, and when in doubt, better ask the LLM!
