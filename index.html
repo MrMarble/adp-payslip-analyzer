@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADP Payslip Analyzer</title>
+    <script>
+      // Prevent flash of wrong theme - set theme before React loads
+      (function() {
+        const saved = localStorage.getItem('theme')
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        
+        let theme
+        if (saved === 'dark') {
+          theme = 'dark'
+        } else if (saved === 'light') {
+          theme = 'light'
+        } else {
+          // 'system' or not set - use system preference
+          theme = systemDark ? 'dark' : 'light'
+        }
+        
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+    <script type="module" crossorigin src="/assets/index-7wa6upDN.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-CLQzd7bN.js">
+    <link rel="modulepreload" crossorigin href="/assets/pdfjs-YEcUENBO.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CvzYw7Qp.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
