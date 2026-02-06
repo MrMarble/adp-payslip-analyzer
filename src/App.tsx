@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Payslip } from './types'
 import { parsePayslip } from './payslip-parser'
 import HeroUpload from './components/HeroUpload'
@@ -9,6 +9,17 @@ function App() {
   const [payslips, setPayslips] = useState<Payslip[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
+  // Demo mode: load mock data on mount
+  // This block is removed by tree-shaking in production builds
+  // since import.meta.env.VITE_DEMO becomes false
+  useEffect(() => {
+    if (import.meta.env.VITE_DEMO) {
+      import('./demo/mockData').then(({ demoPayslips }) => {
+        setPayslips(demoPayslips)
+      })
+    }
+  }, [])
 
   const handleFilesUpload = async (files: File[]) => {
     setLoading(true)
