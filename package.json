@@ -31,6 +31,6 @@
     "@nivo/sankey": "^0.99.0",
     "pdfjs-dist": "^5.4.624",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.4"
   }
 }
