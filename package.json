@@ -17,7 +17,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^25.0.10",
-    "@types/react": "^19.2.9",
+    "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
     "daisyui": "^5.5.14",
@@ -30,7 +30,7 @@
     "@nivo/line": "^0.99.0",
     "@nivo/sankey": "^0.99.0",
     "pdfjs-dist": "^5.4.624",
-    "react": "^19.2.3",
+    "react": "^19.2.4",
     "react-dom": "^19.2.3"
   }
 }
