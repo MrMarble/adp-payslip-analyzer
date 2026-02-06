@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import ThemeToggle from './ThemeToggle'
 
 interface HeroUploadProps {
   onFilesUpload: (files: File[]) => void
@@ -33,7 +34,10 @@ export default function HeroUpload({ onFilesUpload, loading, error }: HeroUpload
   )
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-base-200 relative">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <div className="hero-content text-center">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">Payslip Analyzer</h1>

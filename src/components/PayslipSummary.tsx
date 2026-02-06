@@ -1,6 +1,7 @@
 import type { Payslip } from '../types'
 import SankeyChart from './SankeyChart'
 import PayslipTable from './PayslipTable'
+import Layout from './Layout'
 
 interface PayslipSummaryProps {
   payslip: Payslip
@@ -72,18 +73,8 @@ export default function PayslipSummary({ payslip, onReset, embedded = false }: P
   }
 
   return (
-    <div className="min-h-screen bg-base-200 p-4">
-      <div className="navbar bg-base-100 rounded-box mb-4">
-        <div className="flex-1">
-          <span className="text-xl font-bold px-4">Payslip Analyzer</span>
-        </div>
-        <div className="flex-none">
-          <button className="btn btn-ghost" onClick={onReset}>
-            Upload New
-          </button>
-        </div>
-      </div>
+    <Layout title="Payslip Analyzer" onReset={onReset}>
       {content}
-    </div>
+    </Layout>
   )
 }

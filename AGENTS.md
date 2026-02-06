@@ -19,6 +19,19 @@ npm run test:watch       # Run tests in watch mode
 npx vitest run <path>    # Run a single test file
 ```
 
+## Dark Mode
+
+Theme toggle with three options: Light, Dark, System. Defaults to system preference.
+
+### Implementation
+- **Hook**: `src/hooks/useTheme.ts` - Manages theme state, localStorage persistence, and system preference detection
+- **Component**: `src/components/ThemeToggle.tsx` - Cycling button with sun/moon/monitor icons
+- **No flash**: Inline script in `index.html` sets theme before React hydrates
+- **System sync**: Automatically updates when OS theme changes (when in "system" mode)
+
+### Notes
+- `PayslipSummary` has an `embedded` prop - when true, skips the Layout wrapper (used inside MultiPayslipView)
+
 ## Demo Mode
 
 Demo mode loads mock payslip data without requiring PDF files. Useful for showcasing the UI without exposing real payslip data.
@@ -100,13 +113,25 @@ useEffect(() => {
 ### Project Structure
 ```
 src/
-  components/     # React components
-  types.ts        # Shared interfaces
-  concepts.ts     # Known payslip concept definitions
-  parser.ts       # PDF text extraction
-  payslip-parser.ts  # Main parsing logic
-  App.tsx         # Root component
-  main.tsx        # Entry point
+  components/       # React components
+    Layout.tsx        # Shared navbar layout
+    HeroUpload.tsx    # Landing page with file upload
+    PayslipSummary.tsx  # Single payslip view
+    MultiPayslipView.tsx  # Multiple payslips with trends
+    ThemeToggle.tsx   # Light/Dark/System toggle
+    TimeSeriesChart.tsx  # Net pay over time chart
+    SankeyChart.tsx   # Money flow visualization
+    PayslipTable.tsx  # Earnings/deductions table
+  hooks/
+    useTheme.ts       # Theme state management
+  demo/
+    mockData.ts       # Demo mode mock payslips
+  types.ts          # Shared interfaces
+  concepts.ts       # Known payslip concept definitions
+  parser.ts         # PDF text extraction
+  payslip-parser.ts # Main parsing logic
+  App.tsx           # Root component
+  main.tsx          # Entry point
 ```
 
 ### Dependencies

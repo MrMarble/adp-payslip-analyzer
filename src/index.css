@@ -15,3 +15,26 @@
   animation: rainbow 2s linear infinite;
   font-weight: bold;
 }
+
+/* Time Series Chart - Theme-aware colors */
+.time-series-chart svg text {
+  fill: var(--color-base-content) !important;
+}
+
+.time-series-chart svg .axis text,
+.time-series-chart svg .legends text,
+.time-series-chart svg .markers text {
+  fill: var(--color-base-content) !important;
+}
+
+.time-series-chart svg line[opacity],
+.time-series-chart svg .grid line,
+.time-series-chart svg .axis line,
+.time-series-chart svg .axis path {
+  stroke: var(--color-base-300) !important;
+}
+
+/* Bonus marker text */
+.time-series-chart svg .markers text {
+  font-size: 11px;
+}
